@@ -1,0 +1,1 @@
+export const selectUseDateRange = (state) => state.useDateRange
