@@ -1,7 +1,8 @@
-const initialState = {
-  useDateRange: false,
-}
-
-export const appReducer = (state = initialState, action) => {
-  return state
-}
+export const appReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "COOL_UPDATE":
+      return action.whatever;
+    default:
+      return;
+  }
+};
