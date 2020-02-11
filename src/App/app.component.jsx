@@ -13,12 +13,14 @@ class App extends React.Component {
     lastDay: 0,
     currentYear: false,
     selectedDay: false,
-    secondDay: false
+    secondDay: false,
+    yearStarter: 2000
   };
 
   componentDidMount() {
+    // First take, the app would load with current Month selected
     // this.determineFirstOfMonth();
-    this.determineLastDayOfMonth();
+    // this.determineLastDayOfMonth();
   }
 
   reduxUpdate = () => {
@@ -28,25 +30,26 @@ class App extends React.Component {
     });
   };
 
-  determineFirstOfMonth = () => {
-    let date = this.getDate();
-    let firstDay = new Date(
-      this.state.currentYear,
-      date.getMonth(),
-      1
-    ).getDay();
-    this.setState({ firstDay });
-  };
+  // First take, the app would load with current Month selected
+  // determineFirstOfMonth = () => {
+  //   let date = this.getDate();
+  //   let firstDay = new Date(
+  //     this.state.currentYear,
+  //     date.getMonth(),
+  //     1
+  //   ).getDay();
+  //   this.setState({ firstDay });
+  // };
 
-  determineLastDayOfMonth = () => {
-    let date = this.getDate();
-    let lastDay = new Date(
-      this.state.currentYear,
-      date.getMonth() + 1,
-      0
-    ).getDay();
-    this.setState({ lastDay, currentDate: date });
-  };
+  // determineLastDayOfMonth = () => {
+  //   let date = this.getDate();
+  //   let lastDay = new Date(
+  //     this.state.currentYear,
+  //     date.getMonth() + 1,
+  //     0
+  //   ).getDay();
+  //   this.setState({ lastDay, currentDate: date });
+  // };
 
   getDate = () => {
     return new Date();
@@ -69,54 +72,56 @@ class App extends React.Component {
     );
   };
 
-  incFirstLastDays = e => {
-    let first = new Date(
-      this.getDate().getFullYear(),
-      e ? e : this.state.currentMonth + 1,
-      1
-    ).getDay();
-    this.setState(s => {
-      return {
-        firstDay: first,
-        selectedDay: false
-      };
-    });
-  };
+  // initially had no selectors, instead using inc/dec buttons
+  // incFirstLastDays = e => {
+  //   let first = new Date(
+  //     this.getDate().getFullYear(),
+  //     e ? e : this.state.currentMonth + 1,
+  //     1
+  //   ).getDay();
+  //   this.setState(s => {
+  //     return {
+  //       firstDay: first,
+  //       selectedDay: false
+  //     };
+  //   });
+  // };
 
-  decFirstLastDays = e => {
-    let d = this.getDate();
-    let first = new Date(
-      this.getDate().getFullYear(),
-      e ? e : this.state.currentMonth - 1,
-      1
-    ).getDay();
-    this.setState(s => {
-      return {
-        firstDay: first,
-        selectedDay: false
-      };
-    });
-  };
+  // decFirstLastDays = e => {
+  //   let d = this.getDate();
+  //   let first = new Date(
+  //     this.getDate().getFullYear(),
+  //     e ? e : this.state.currentMonth - 1,
+  //     1
+  //   ).getDay();
+  //   this.setState(s => {
+  //     return {
+  //       firstDay: first,
+  //       selectedDay: false
+  //     };
+  //   });
+  // };
 
-  incMonth = () => {
-    if (this.state.currentMonth === 11) {
-      this.setCurrentMonth(0);
-      this.incFirstLastDays(0);
-    } else {
-      this.setCurrentMonth(this.state.currentMonth + 1);
-      this.incFirstLastDays();
-    }
-  };
+  // initially had no selectors, instead using inc/dec buttons
+  // incMonth = () => {
+  //   if (this.state.currentMonth === 11) {
+  //     this.setCurrentMonth(0);
+  //     this.incFirstLastDays(0);
+  //   } else {
+  //     this.setCurrentMonth(this.state.currentMonth + 1);
+  //     this.incFirstLastDays();
+  //   }
+  // };
 
-  decMonth = () => {
-    if (this.state.currentMonth === 0) {
-      this.setCurrentMonth(11);
-      this.decFirstLastDays(11);
-    } else {
-      this.setCurrentMonth(this.state.currentMonth - 1);
-      this.decFirstLastDays();
-    }
-  };
+  // decMonth = () => {
+  //   if (this.state.currentMonth === 0) {
+  //     this.setCurrentMonth(11);
+  //     this.decFirstLastDays(11);
+  //   } else {
+  //     this.setCurrentMonth(this.state.currentMonth - 1);
+  //     this.decFirstLastDays();
+  //   }
+  // };
 
   createCalendar = () => {
     let days = new Array(this.state.monthInfo.days).fill({ real: true });
@@ -188,12 +193,17 @@ class App extends React.Component {
             onChange={this.handleYearChange}
           >
             {new Array(30).fill("").map((s, i) => {
-              return <option value={i + 2000}>{i + 2000}</option>;
+              return (
+                <option value={i + this.state.yearStarter}>
+                  {i + this.state.yearStarter}
+                </option>
+              );
             })}
           </select>
         </YearPicker>
         {this.state.currentYear ? (
           <MonthPickerWrap>
+            {/* initially had no selectors, instead using inc/dec buttons */}
             {/* <MonthChangeButtonWrap onClick={this.decMonth}>
               &#60;
             </MonthChangeButtonWrap> */}
@@ -209,6 +219,7 @@ class App extends React.Component {
                 })}
               </select>
             </MonthDisplayWrap>
+            {/* initially had no selectors, instead using inc/dec buttons */}
             {/* <MonthChangeButtonWrap onClick={this.incMonth}>
               &#62;
             </MonthChangeButtonWrap> */}
